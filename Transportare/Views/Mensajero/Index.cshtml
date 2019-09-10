@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Transportare.Models.Mensajero>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre Completo
+        </th>        
+        <th>
+            Documento
+        </th>
+        <th>
+            Dirección
+        </th>
+        <th>
+            FechaIngreso
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCompleto)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Documento)
+        </td>
+        <td>
+            @item.Direccion
+        </td>
+        <td>
+            @item.FechaIngreso.ToShortDateString()
+        </td>       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdMensajero }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdMensajero }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdMensajero })
+        </td>
+    </tr>
+}
+
+</table>
