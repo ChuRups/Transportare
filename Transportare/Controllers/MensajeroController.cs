@@ -31,7 +31,7 @@ namespace Transportare.Controllers
             }
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult MensajeroDetalles(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,13 +51,13 @@ namespace Transportare.Controllers
             }
         }
 
-        public ActionResult Create()
+        public ActionResult MensajeroCrear()
         {
             try
             {
                 using (var db = new TransportareContext())
                 {
-                    ViewBag.SexoDes = new SelectList(db.TablaGeneral.Where(tg => tg.Grupo == 1).ToList(), "IdTablaGeneral", "Descripcion");
+                    ViewBag.IdSexo = new SelectList(db.TablaGeneral.Where(tg => tg.Grupo == 1).ToList(), "IdTablaGeneral", "Descripcion");
                     return View();
                 }
             }
@@ -68,10 +68,9 @@ namespace Transportare.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Mensajero m)
+        public ActionResult MensajeroCrear(Mensajero m)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -80,7 +79,6 @@ namespace Transportare.Controllers
             {
                 using (var db = new TransportareContext())
                 {
-                    m.FechaIngreso = DateTime.Now;
                     m.Estado = true;
                     db.Mensajero.Add(m);
                     db.SaveChanges();
@@ -94,54 +92,76 @@ namespace Transportare.Controllers
             }
         }
 
-        // GET: Mensajero/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult MensajeroEditar(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mensajero mensajero = db.Mensajero.Find(id);
-            if (mensajero == null)
+
+            try
             {
-                return HttpNotFound();
+                using (var db = new TransportareContext())
+                {
+                    Mensajero mensajero = db.Mensajero.Find(id);
+                    if (mensajero == null)
+                        return HttpNotFound();
+                    ViewBag.FechaIng = mensajero.FechaIngreso.ToShortDateString();
+                    return View(mensajero);
+                }
             }
-            return View(mensajero);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
-        // POST: Mensajero/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdMensajero,Nombre,Apellidos,Documento,Direccion,FechaIngreso,estado")] Mensajero mensajero)
+        public ActionResult MensajeroEditar(Mensajero m)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(mensajero).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    using (var db = new TransportareContext())
+                    {
+                        m.Estado = true;
+                        db.Entry(m).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(m);
             }
-            return View(mensajero);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
-        // GET: Mensajero/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult MensajeroEliminar(int? id)
         {
-            if (id == null)
-            {
+            if (id == null)            
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mensajero mensajero = db.Mensajero.Find(id);
-            if (mensajero == null)
+            try
             {
-                return HttpNotFound();
+                using (var db = new TransportareContext())
+                {
+                    Mensajero mensajero = db.Mensajero.Find(id);
+                    if (mensajero == null)
+                        return HttpNotFound();
+
+                    return View(mensajero);
+                }
             }
-            return View(mensajero);
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
 
-        // POST: Mensajero/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("MensajeroEliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

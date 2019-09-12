@@ -10,36 +10,39 @@ namespace Transportare.Models
     {
         public int IdMensajero { get; set; }
         [Required]
-        [Display(Name = "Ingrese Nombres")]
-        public string Nombre { get; set; }
+        [Display(Name = "Nombres")]
+        public string Nombres { get; set; }
         [Required]
-        [Display(Name = "Ingrese Apellidos")]
+        [Display(Name = "Apellidos")]
         public string Apellidos { get; set; }
         [Required]
-        [Display(Name = "Ingrese Número Documento")]
+        [Display(Name = "Número Documento")]
         [MaxLength(15, ErrorMessage = "Máximo 15 caracteres...")]
-        [MinLength(8, ErrorMessage = "Mínimo 8 dígitos...")]
+        [MinLength(8, ErrorMessage = "Mínimo 8 dígitos...")]        
         //[Range(0, Int32.MaxValue, ErrorMessage = "El valor {0} no es válido para UnidadesEnExistencia")]
         public string Documento { get; set; }
         [Required]
-        [Display(Name = "Ingrese Género")]
+        [Display(Name = "Género")]
         public int IdSexo { get; set; }
+        public int IdUbigeo { get; set; }
         [Required]
-        [Display(Name = "Ingrese Dirección")]
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
+        [Required]
+        [Display(Name = "Fecha de Ingreso")]
         public DateTime FechaIngreso { get; set; }
         public bool Estado { get; set; }
 
         public string SexoDes { get; set; }
 
-        public string NombreCompleto { get { return Nombre + " " + Apellidos; } }
+        public string NombreCompleto { get { return Nombres + " " + Apellidos; } }
 
     }
 
     [MetadataType(typeof(MensajeroCE))]
     public partial class Mensajero
     {
-        public string NombreCompleto { get { return Nombre + " " + Apellidos; } }
+        public string NombreCompleto { get { return Nombres + " " + Apellidos; } }
         public string SexoDes { get; set; }
     }
 

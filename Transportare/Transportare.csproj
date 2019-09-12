@@ -169,6 +169,9 @@
     <Compile Include="Models\TablaGeneral.cs">
       <DependentUpon>ModeloTransportare.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ubigeo.cs">
+      <DependentUpon>ModeloTransportare.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Validation\MensajeroCE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,10 +197,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Mensajero\Create.cshtml" />
-    <Content Include="Views\Mensajero\Delete.cshtml" />
-    <Content Include="Views\Mensajero\Details.cshtml" />
-    <Content Include="Views\Mensajero\Edit.cshtml" />
+    <Content Include="Views\Mensajero\MensajeroCrear.cshtml" />
+    <Content Include="Views\Mensajero\MensajeroEliminar.cshtml" />
+    <Content Include="Views\Mensajero\MensajeroDetalles.cshtml" />
+    <Content Include="Views\Mensajero\MensajeroEditar.cshtml" />
     <Content Include="Views\Mensajero\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

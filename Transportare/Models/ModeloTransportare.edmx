@@ -10,13 +10,14 @@
             <PropertyRef Name="IdMensajero" />
           </Key>
           <Property Name="IdMensajero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Documento" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="Direccion" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IdSexo" Type="int" Nullable="false" />
+          <Property Name="IdUbigeo" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="TablaGeneral">
           <Key>
@@ -27,9 +28,18 @@
           <Property Name="Grupo" Type="int" />
           <Property Name="GrupDes" Type="varchar" MaxLength="80" />
         </EntityType>
+        <EntityType Name="Ubigeo">
+          <Key>
+            <PropertyRef Name="IdUbigeo" />
+          </Key>
+          <Property Name="IdUbigeo" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Padre" Type="varchar" MaxLength="6" />
+        </EntityType>
         <EntityContainer Name="ModeloTransportareStoreContainer">
           <EntitySet Name="Mensajero" EntityType="Self.Mensajero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -38,19 +48,21 @@
         <EntityContainer Name="TransportareContext" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Mensajero" EntityType="ModeloTransportare.Mensajero" />
           <EntitySet Name="TablaGeneral" EntityType="ModeloTransportare.TablaGeneral" />
+          <EntitySet Name="Ubigeo" EntityType="ModeloTransportare.Ubigeo" />
         </EntityContainer>
         <EntityType Name="Mensajero">
           <Key>
             <PropertyRef Name="IdMensajero" />
           </Key>
           <Property Name="IdMensajero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Documento" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdSexo" Type="Int32" Nullable="false" />
+          <Property Name="IdUbigeo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TablaGeneral">
           <Key>
@@ -61,7 +73,15 @@
           <Property Name="Grupo" Type="Int32" />
           <Property Name="GrupDes" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Ubigeo">
+          <Key>
+            <PropertyRef Name="IdUbigeo" />
+          </Key>
+          <Property Name="IdUbigeo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Padre" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -70,13 +90,14 @@
           <EntitySetMapping Name="Mensajero">
             <EntityTypeMapping TypeName="ModeloTransportare.Mensajero">
               <MappingFragment StoreEntitySet="Mensajero">
+                <ScalarProperty Name="IdUbigeo" ColumnName="IdUbigeo" />
                 <ScalarProperty Name="IdSexo" ColumnName="IdSexo" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Documento" ColumnName="Documento" />
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="IdMensajero" ColumnName="IdMensajero" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -88,6 +109,15 @@
                 <ScalarProperty Name="Grupo" ColumnName="Grupo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IdTablaGeneral" ColumnName="IdTablaGeneral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ubigeo">
+            <EntityTypeMapping TypeName="ModeloTransportare.Ubigeo">
+              <MappingFragment StoreEntitySet="Ubigeo">
+                <ScalarProperty Name="Padre" ColumnName="Padre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdUbigeo" ColumnName="IdUbigeo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

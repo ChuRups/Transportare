@@ -27,5 +27,6 @@ namespace Transportare.Models
     
         public virtual DbSet<Mensajero> Mensajero { get; set; }
         public virtual DbSet<TablaGeneral> TablaGeneral { get; set; }
+        public virtual DbSet<Ubigeo> Ubigeo { get; set; }
     }
 }

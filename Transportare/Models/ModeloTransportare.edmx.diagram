@@ -7,6 +7,7 @@
       <Diagram DiagramId="ea9ad2ef2638464e93f4edab30bb7a66" Name="Diagram1" >
         <EntityTypeShape EntityType="ModeloTransportare.Mensajero" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ModeloTransportare.TablaGeneral" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModeloTransportare.Ubigeo" Width="1.5" PointX="2.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,16 +12,10 @@ namespace Transportare.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Mensajero
+    public partial class Ubigeo
     {
-        public int IdMensajero { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Documento { get; set; }
-        public string Direccion { get; set; }
-        public System.DateTime FechaIngreso { get; set; }
-        public bool Estado { get; set; }
-        public int IdSexo { get; set; }
         public string IdUbigeo { get; set; }
+        public string Descripcion { get; set; }
+        public string Padre { get; set; }
     }
 }

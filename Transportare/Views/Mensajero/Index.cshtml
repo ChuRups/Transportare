@@ -1,13 +1,9 @@
 ﻿@model IEnumerable<Transportare.Models.Mensajero>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>Lista de Mensajeros </h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Mensajero", "MensajeroCrear")
 </p>
 <table class="table">
     <tr>
@@ -21,7 +17,7 @@
             Dirección
         </th>
         <th>
-            FechaIngreso
+            Fecha de Ingreso
         </th>        
         <th></th>
     </tr>
@@ -41,9 +37,9 @@
             @item.FechaIngreso.ToShortDateString()
         </td>       
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdMensajero }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdMensajero }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdMensajero })
+            @Html.ActionLink("Editar", "MensajeroEditar", new { id=item.IdMensajero }) |
+            @Html.ActionLink("Detalles", "MensajeroDetalles", new { id=item.IdMensajero }) |
+            @Html.ActionLink("Eliminar", "MensajeroEliminar", new { id=item.IdMensajero })
         </td>
     </tr>
 }
