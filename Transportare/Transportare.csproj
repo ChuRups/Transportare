@@ -202,6 +202,7 @@
     <Content Include="Views\Mensajero\MensajeroDetalles.cshtml" />
     <Content Include="Views\Mensajero\MensajeroEditar.cshtml" />
     <Content Include="Views\Mensajero\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

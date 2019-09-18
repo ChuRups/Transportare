@@ -5,7 +5,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -38,7 +38,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.IdSexo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.IdSexo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.IdSexo, (SelectList)ViewBag.TipoGenero, "-- Seleccione Género --", htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.IdSexo, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -53,16 +53,31 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.FechaIngreso, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10">            
             @Html.EditorFor(model => model.FechaIngreso, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.TextBoxFor(model => model.FechaIngreso, $"{Model.FechaIngreso.ToShortDateString()}", new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("DdlDepartamento", (SelectList)ViewBag.Departamentos, "-- Seleccione Departamento --", htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Provincia", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("DdlProvincia", new SelectList(" "), "-- Seleccione Provincia --", htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.IdUbigeo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.IdUbigeo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.IdUbigeo, (SelectList)ViewBag.xDistrito, "-- Seleccione Distrito --", htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.IdUbigeo, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -82,3 +97,29 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#DdlDepartamento").change(function () {
+            $.get("/Mensajero/ListarProvincia", { IdDepartamento: $("#DdlDepartamento").val() }, function (data) {
+                $("#DdlProvincia").empty();
+                $("#DdlProvincia").append("<option value=''>-- Seleccione Provincia --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
+                $.each(data, function (index, row) {
+                    $("#DdlProvincia").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
+                })
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $("#DdlProvincia").change(function () {
+            $.get("/Mensajero/ListarDistrito", { IdProvincia: $("#DdlProvincia").val() }, function (data) {
+                $("#IdUbigeo").empty();
+                $("#IdUbigeo").append("<option value=''>-- Seleccione Distrito --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
+                $.each(data, function (index, row) {
+                    $("#IdUbigeo").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
+                })
+            })
+        })
+    })
+</script>

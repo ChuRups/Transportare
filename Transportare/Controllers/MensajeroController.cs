@@ -35,7 +35,6 @@ namespace Transportare.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             try
             {
                 using (var db = new TransportareContext())
@@ -58,6 +57,7 @@ namespace Transportare.Controllers
                 using (var db = new TransportareContext())
                 {
                     ViewBag.IdSexo = new SelectList(db.TablaGeneral.Where(tg => tg.Grupo == 1).ToList(), "IdTablaGeneral", "Descripcion");
+                    ViewBag.Departamentos = new SelectList(db.Ubigeo.Where(u => u.Padre == null).ToList(), "IdUbigeo", "Descripcion");
                     return View();
                 }
             }
@@ -74,7 +74,6 @@ namespace Transportare.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
-
             try
             {
                 using (var db = new TransportareContext())
@@ -96,7 +95,6 @@ namespace Transportare.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             try
             {
                 using (var db = new TransportareContext())
@@ -104,7 +102,10 @@ namespace Transportare.Controllers
                     Mensajero mensajero = db.Mensajero.Find(id);
                     if (mensajero == null)
                         return HttpNotFound();
-                    ViewBag.FechaIng = mensajero.FechaIngreso.ToShortDateString();
+                    ViewBag.TipoGenero = new SelectList(db.TablaGeneral.Where(tg => tg.Grupo == 1).ToList(), "IdTablaGeneral", "Descripcion");
+                    ViewBag.Departamentos = new SelectList(db.Ubigeo.Where(u => u.Padre == null).ToList(), "IdUbigeo", "Descripcion");
+                    ViewBag.xDistrito = new SelectList(db.Ubigeo.ToList(), "IdUbigeo", "Descripcion");
+                    ViewBag.FechaIng = mensajero.FechaIngreso.ToShortDateString();                    
                     return View(mensajero);
                 }
             }
@@ -165,10 +166,13 @@ namespace Transportare.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Mensajero mensajero = db.Mensajero.Find(id);
-            db.Mensajero.Remove(mensajero);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            using (var db = new TransportareContext())
+            {
+                Mensajero mensajero = db.Mensajero.Find(id);
+                db.Mensajero.Remove(mensajero);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -179,5 +183,27 @@ namespace Transportare.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public JsonResult ListarProvincia(string IdDepartamento)
+        {
+            using (var db = new TransportareContext())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                List<Ubigeo> ListaProvincias = db.Ubigeo.Where(x => x.Padre == IdDepartamento).ToList();
+                return Json(ListaProvincias, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult ListarDistrito(string IdProvincia)
+        {
+            using (var db = new TransportareContext())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                List<Ubigeo> ListaDistrito = db.Ubigeo.Where(x => x.Padre == IdProvincia).ToList();
+                return Json(ListaDistrito, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

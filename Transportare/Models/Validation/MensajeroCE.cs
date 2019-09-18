@@ -24,12 +24,16 @@ namespace Transportare.Models
         [Required]
         [Display(Name = "Género")]
         public int IdSexo { get; set; }
+        [Required]
+        [Display(Name = "Distrito")]
         public int IdUbigeo { get; set; }
         [Required]
         [Display(Name = "Dirección")]
         public string Direccion { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Fecha de Ingreso")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
         public bool Estado { get; set; }
 

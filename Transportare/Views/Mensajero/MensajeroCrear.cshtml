@@ -1,93 +1,107 @@
 ﻿@model Transportare.Models.Mensajero
 
-@*@{    
-    SelectList G = ViewBag.CHURA;
-}*@
+@*@{
+        SelectList G = ViewBag.CHURA;
+    }*@
 
 <h2>Nuevo Mensajero</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Mensajero</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Mensajero</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Documento, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdSexo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*<select class="form-control" id="IdSexo" name="IdSexo">
-                    @{
-                        foreach (SelectListItem item in G)
-                        {
-                            <option value=@item.Value> @item.Text </option>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Documento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdSexo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<select class="form-control" id="IdSexo" name="IdSexo">
+                        @{
+                            foreach (SelectListItem item in G)
+                            {
+                                <option value=@item.Value> @item.Text </option>
+                            }
                         }
-                    }
-                </select>*@   @*Manera 1 de enviar datos*@
-                @*@Html.DropDownList("IdSexo", G, htmlAttributes: new { @class = "form-control" })*@ @*Manera 2 de enviar datos*@
-                @Html.DropDownList("IdSexo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdSexo, "", new { @class = "text-danger" })
+                    </select>*@   @*Manera 1 de enviar datos*@
+                    @*@Html.DropDownList("IdSexo", G, htmlAttributes: new { @class = "form-control" })*@ @*Manera 2 de enviar datos*@
+                    @Html.DropDownList("IdSexo", null, "-- Seleccione Género --", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdSexo, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaIngreso, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaIngreso, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.FechaIngreso, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaIngreso, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdUbigeo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdUbigeo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdUbigeo, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DdlDepartamento", (SelectList)ViewBag.Departamentos, "-- Seleccione Departamento --", htmlAttributes: new { @class = "form-control" })                    
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-                <input type="reset" name="reset" value="Limpiar" class="btn btn-danger" />
+            <div class="form-group">
+                @Html.Label("Provincia", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DdlProvincia", new SelectList(" "), "-- Seleccione Provincia --", htmlAttributes: new { @class = "form-control" })                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdUbigeo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.IdUbigeo, new SelectList(" "), "-- Seleccione Distrito --", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdUbigeo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-default" />
+                    <input type="reset" name="reset" value="Limpiar" class="btn btn-danger" />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
 
 <div>
     @Html.ActionLink("Regresar a la Lista", "Index")
@@ -96,3 +110,29 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#DdlDepartamento").change(function () {
+            $.get("/Mensajero/ListarProvincia", { IdDepartamento: $("#DdlDepartamento").val() }, function (data) {
+                $("#DdlProvincia").empty();                
+                $("#DdlProvincia").append("<option value=''>-- Seleccione Provincia --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
+                $.each(data, function (index, row) {
+                    $("#DdlProvincia").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
+                })
+            })
+        })
+    })
+
+    $(document).ready(function () {
+        $("#DdlProvincia").change(function () {
+            $.get("/Mensajero/ListarDistrito", { IdProvincia: $("#DdlProvincia").val() }, function (data) {
+                $("#IdUbigeo").empty();
+                $("#IdUbigeo").append("<option value=''>-- Seleccione Distrito --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
+                $.each(data, function (index, row) {
+                    $("#IdUbigeo").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
+                })
+            })
+        })
+    })
+</script>
