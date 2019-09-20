@@ -38,9 +38,11 @@
                 @item.FechaIngreso.ToShortDateString()
             </td>
             <td>
+                <button type="button" value="Actualizar" title="Detalles" class="btn btn-primary"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
                 @Html.ActionLink("Editar", "MensajeroEditar", new { id = item.IdMensajero }) |
                 @Html.ActionLink("Detalles", "MensajeroDetalles", new { id = item.IdMensajero }) |
                 @Html.ActionLink("Eliminar", "MensajeroEliminar", new { id = item.IdMensajero })
+                <button type="button" value="Eliminar" title="Eliminar" class="btn btn-danger btn-delete"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
             </td>
         </tr>
     }
@@ -51,3 +53,9 @@
 <div style="color:green">
     Mostrando @Model.Count() Mensajeros
 </div>
+
+@*@{
+    Html.RenderAction("MensajeroCrear");
+}
+
+@Html.Action("MensajeroCrear");*@

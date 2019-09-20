@@ -49,7 +49,8 @@ namespace Transportare.Controllers
                 return View();
             }
         }
-
+        
+        //[ChildActionOnly]
         public ActionResult MensajeroCrear()
         {
             try
@@ -162,9 +163,9 @@ namespace Transportare.Controllers
             }            
         }
 
-        [HttpPost, ActionName("MensajeroEliminar")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult MensajeroEliminar(int id)
         {
             using (var db = new TransportareContext())
             {

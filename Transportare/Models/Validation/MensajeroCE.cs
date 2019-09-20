@@ -35,19 +35,16 @@ namespace Transportare.Models
         [Display(Name = "Fecha de Ingreso")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
-        public bool Estado { get; set; }
 
-        public string SexoDes { get; set; }
+        public bool Estado { get; set; }        
 
         public string NombreCompleto { get { return Nombres + " " + Apellidos; } }
-
     }
 
     [MetadataType(typeof(MensajeroCE))]
     public partial class Mensajero
     {
-        public string NombreCompleto { get { return Nombres + " " + Apellidos; } }
-        public string SexoDes { get; set; }
+        public string NombreCompleto { get { return Nombres + " " + Apellidos; } }        
     }
 
 }

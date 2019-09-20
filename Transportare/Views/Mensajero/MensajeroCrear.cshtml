@@ -75,21 +75,21 @@
             <div class="form-group">
                 @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("DdlDepartamento", (SelectList)ViewBag.Departamentos, "-- Seleccione Departamento --", htmlAttributes: new { @class = "form-control" })                    
+                    @Html.DropDownList("DdlDepartamento", (SelectList)ViewBag.Departamentos, "-- Seleccione Departamento --", htmlAttributes: new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.Label("Provincia", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("DdlProvincia", new SelectList(" "), "-- Seleccione Provincia --", htmlAttributes: new { @class = "form-control" })                    
+                    @Html.DropDownList("DdlProvincia", new SelectList(" "), "-- Seleccione Provincia --", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.IdUbigeo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.IdUbigeo, new SelectList(" "), "-- Seleccione Distrito --", htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.IdUbigeo, new SelectList(" "), "-- Seleccione Distrito --", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                     @Html.ValidationMessageFor(model => model.IdUbigeo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -115,7 +115,9 @@
     $(document).ready(function () {
         $("#DdlDepartamento").change(function () {
             $.get("/Mensajero/ListarProvincia", { IdDepartamento: $("#DdlDepartamento").val() }, function (data) {
-                $("#DdlProvincia").empty();                
+                $("#DdlProvincia").empty();
+                $("#DdlProvincia").removeAttr('disabled');
+                //$("#DdlDistrito").select( dataItem => dataItem.symbol === "-- Seleccione Distrito --");
                 $("#DdlProvincia").append("<option value=''>-- Seleccione Provincia --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
                 $.each(data, function (index, row) {
                     $("#DdlProvincia").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
@@ -128,6 +130,7 @@
         $("#DdlProvincia").change(function () {
             $.get("/Mensajero/ListarDistrito", { IdProvincia: $("#DdlProvincia").val() }, function (data) {
                 $("#IdUbigeo").empty();
+                $("#IdUbigeo").removeAttr('disabled');
                 $("#IdUbigeo").append("<option value=''>-- Seleccione Distrito --</option>")  //AGREGADO PARA QUE MUESTRE UN TITULO
                 $.each(data, function (index, row) {
                     $("#IdUbigeo").append("<option value='" + row.IdUbigeo + "'>" + row.Descripcion + "</option>")
