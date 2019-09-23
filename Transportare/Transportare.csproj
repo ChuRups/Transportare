@@ -109,11 +109,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\nprogress.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\custom.min.css" />
+    <Content Include="fonts\font-awesome\.gitignore" />
+    <Content Include="fonts\font-awesome\css\font-awesome.css" />
+    <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\font-awesome\HELP-US-OUT.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\ModeloTransportare.Context.tt">
@@ -126,25 +134,84 @@
       <DependentUpon>ModeloTransportare.edmx</DependentUpon>
       <LastGenOutput>ModeloTransportare.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Seguridad\ModeloSeguridad.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloSeguridad.edmx</DependentUpon>
+      <LastGenOutput>ModeloSeguridad.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Seguridad\ModeloSeguridad.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloSeguridad.edmx</DependentUpon>
+      <LastGenOutput>ModeloSeguridad.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\font-awesome\.bower.json" />
+    <Content Include="fonts\font-awesome\.npmignore" />
+    <Content Include="fonts\font-awesome\bower.json" />
+    <Content Include="fonts\font-awesome\css\font-awesome.css.map" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="fonts\font-awesome\less\animated.less" />
+    <Content Include="fonts\font-awesome\less\bordered-pulled.less" />
+    <Content Include="fonts\font-awesome\less\core.less" />
+    <Content Include="fonts\font-awesome\less\fixed-width.less" />
+    <Content Include="fonts\font-awesome\less\font-awesome.less" />
+    <Content Include="fonts\font-awesome\less\icons.less" />
+    <Content Include="fonts\font-awesome\less\larger.less" />
+    <Content Include="fonts\font-awesome\less\list.less" />
+    <Content Include="fonts\font-awesome\less\mixins.less" />
+    <Content Include="fonts\font-awesome\less\path.less" />
+    <Content Include="fonts\font-awesome\less\rotated-flipped.less" />
+    <Content Include="fonts\font-awesome\less\screen-reader.less" />
+    <Content Include="fonts\font-awesome\less\stacked.less" />
+    <Content Include="fonts\font-awesome\less\variables.less" />
+    <Content Include="fonts\font-awesome\scss\font-awesome.scss" />
+    <Content Include="fonts\font-awesome\scss\_animated.scss" />
+    <Content Include="fonts\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="fonts\font-awesome\scss\_core.scss" />
+    <Content Include="fonts\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="fonts\font-awesome\scss\_icons.scss" />
+    <Content Include="fonts\font-awesome\scss\_larger.scss" />
+    <Content Include="fonts\font-awesome\scss\_list.scss" />
+    <Content Include="fonts\font-awesome\scss\_mixins.scss" />
+    <Content Include="fonts\font-awesome\scss\_path.scss" />
+    <Content Include="fonts\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="fonts\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="fonts\font-awesome\scss\_stacked.scss" />
+    <Content Include="fonts\font-awesome\scss\_variables.scss" />
+    <EntityDeploy Include="Models\Seguridad\ModeloSeguridad.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloSeguridad.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Seguridad\ModeloSeguridad.edmx.diagram">
+      <DependentUpon>ModeloSeguridad.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\custom.min.js" />
+    <Content Include="Scripts\fastclick.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\nprogress.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MensajeroController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,6 +232,60 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloTransportare.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\AsignarPrivilegio.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\AsignarUsuarioRol.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\Menu.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\ModeloSeguridad.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloSeguridad.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\ModeloSeguridad.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\ModeloSeguridad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloSeguridad.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\Modulo.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\RecupContra.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\Rol.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SpAsignarPrivilegio_List_Result.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SpPrivilegioMenu_List_Result.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SpPrivilegioModulo_List_Result.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SpPrivilegioSubMenu_List_Result.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SpUsuario_List_Result.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\SubMenu.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seguridad\Usuario.cs">
+      <DependentUpon>ModeloSeguridad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TablaGeneral.cs">
       <DependentUpon>ModeloTransportare.tt</DependentUpon>
@@ -202,6 +323,7 @@
     <Content Include="Views\Mensajero\MensajeroDetalles.cshtml" />
     <Content Include="Views\Mensajero\MensajeroEditar.cshtml" />
     <Content Include="Views\Mensajero\Index.cshtml" />
+    <Content Include="Views\Seguridad\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

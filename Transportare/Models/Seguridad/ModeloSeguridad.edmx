@@ -1,0 +1,775 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SeguridadContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AsignarPrivilegio">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+            <PropertyRef Name="IdMenu" />
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+          <Property Name="IdSubMenu" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AsignarUsuarioRol">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+          <Property Name="NomMenu" Type="varchar" MaxLength="45" />
+          <Property Name="IconMenu" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+          </Key>
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="NomModulo" Type="varchar" MaxLength="45" />
+          <Property Name="IdEstado" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecupContra">
+          <Key>
+            <PropertyRef Name="DNI" />
+          </Key>
+          <Property Name="DNI" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="60" />
+          <Property Name="Token" Type="varchar" MaxLength="200" />
+          <Property Name="FecCre" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="NomRol" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubMenu">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdMenu" />
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdModulo" Type="int" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+          <Property Name="IdSubMenu" Type="int" Nullable="false" />
+          <Property Name="NomSubMenu" Type="varchar" MaxLength="45" />
+          <Property Name="IconSubMenu" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="DNI" Type="int" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="15" />
+          <Property Name="Pass" Type="char" MaxLength="60" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_AsignarPrivilegio_AsignarUsuarioRol1">
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="1" />
+          <End Role="AsignarPrivilegio" Type="Self.AsignarPrivilegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdUsuario" />
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="AsignarPrivilegio">
+              <PropertyRef Name="IdUsuario" />
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarPrivilegio_SubMenu1">
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="1" />
+          <End Role="AsignarPrivilegio" Type="Self.AsignarPrivilegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+              <PropertyRef Name="IdSubMenu" />
+            </Principal>
+            <Dependent Role="AsignarPrivilegio">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+              <PropertyRef Name="IdSubMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarUsuarioRol_Rol1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarUsuarioRol_usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Menu_Modulo1">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="IdModulo" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="IdModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Rol_Modulo1">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="IdModulo" />
+            </Principal>
+            <Dependent Role="Rol">
+              <PropertyRef Name="IdModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SubMenu_Menu1">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SubMenu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SpAsignarPrivilegio_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opc" Type="int" Mode="In" />
+          <Parameter Name="DNI" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpPrivilegioMenu_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opc" Type="int" Mode="In" />
+          <Parameter Name="DNI" Type="int" Mode="In" />
+          <Parameter Name="IdModulo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SpPrivilegioModulo_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opc" Type="int" Mode="In" />
+          <Parameter Name="DNI" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpPrivilegioSubMenu_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opc" Type="int" Mode="In" />
+          <Parameter Name="DNI" Type="int" Mode="In" />
+          <Parameter Name="IdModulo" Type="varchar" Mode="In" />
+          <Parameter Name="IdMenu" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SpRecupContra_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DNI" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpRecupContra_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DNI" Type="int" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Token" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SpUsuario_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usu" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+          <Parameter Name="DNI" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SpUsuario_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opc" Type="int" Mode="In" />
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SpUsuario_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usu" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+          <Parameter Name="DNI" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SeguridadContextStoreContainer">
+          <EntitySet Name="AsignarPrivilegio" EntityType="Self.AsignarPrivilegio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AsignarUsuarioRol" EntityType="Self.AsignarUsuarioRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecupContra" EntityType="Self.RecupContra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubMenu" EntityType="Self.SubMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_AsignarPrivilegio_AsignarUsuarioRol1" Association="Self.fk_AsignarPrivilegio_AsignarUsuarioRol1">
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+            <End Role="AsignarPrivilegio" EntitySet="AsignarPrivilegio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarPrivilegio_SubMenu1" Association="Self.fk_AsignarPrivilegio_SubMenu1">
+            <End Role="SubMenu" EntitySet="SubMenu" />
+            <End Role="AsignarPrivilegio" EntitySet="AsignarPrivilegio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarUsuarioRol_Rol1" Association="Self.fk_AsignarUsuarioRol_Rol1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarUsuarioRol_usuario1" Association="Self.fk_AsignarUsuarioRol_usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Menu_Modulo1" Association="Self.fk_Menu_Modulo1">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Rol_Modulo1" Association="Self.fk_Rol_Modulo1">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SubMenu_Menu1" Association="Self.fk_SubMenu_Menu1">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="SubMenu" EntitySet="SubMenu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SeguridadContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AsignarPrivilegio">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+            <PropertyRef Name="IdMenu" />
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
+          <Property Name="IdSubMenu" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AsignarUsuarioRol" Relationship="Self.fk_AsignarPrivilegio_AsignarUsuarioRol1" FromRole="AsignarPrivilegio" ToRole="AsignarUsuarioRol" />
+          <NavigationProperty Name="SubMenu" Relationship="Self.fk_AsignarPrivilegio_SubMenu1" FromRole="AsignarPrivilegio" ToRole="SubMenu" />
+        </EntityType>
+        <EntityType Name="AsignarUsuarioRol">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AsignarPrivilegio" Relationship="Self.fk_AsignarPrivilegio_AsignarUsuarioRol1" FromRole="AsignarUsuarioRol" ToRole="AsignarPrivilegio" />
+          <NavigationProperty Name="Rol" Relationship="Self.fk_AsignarUsuarioRol_Rol1" FromRole="AsignarUsuarioRol" ToRole="Rol" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_AsignarUsuarioRol_usuario1" FromRole="AsignarUsuarioRol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
+          <Property Name="NomMenu" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IconMenu" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modulo" Relationship="Self.fk_Menu_Modulo1" FromRole="Menu" ToRole="Modulo" />
+          <NavigationProperty Name="SubMenu" Relationship="Self.fk_SubMenu_Menu1" FromRole="Menu" ToRole="SubMenu" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+          </Key>
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="NomModulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.fk_Menu_Modulo1" FromRole="Modulo" ToRole="Menu" />
+          <NavigationProperty Name="Rol" Relationship="Self.fk_Rol_Modulo1" FromRole="Modulo" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="RecupContra">
+          <Key>
+            <PropertyRef Name="DNI" />
+          </Key>
+          <Property Name="DNI" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Token" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FecCre" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="NomRol" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AsignarUsuarioRol" Relationship="Self.fk_AsignarUsuarioRol_Rol1" FromRole="Rol" ToRole="AsignarUsuarioRol" />
+          <NavigationProperty Name="Modulo" Relationship="Self.fk_Rol_Modulo1" FromRole="Rol" ToRole="Modulo" />
+        </EntityType>
+        <EntityType Name="SubMenu">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+            <PropertyRef Name="IdMenu" />
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdModulo" Type="Int32" Nullable="false" />
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
+          <Property Name="IdSubMenu" Type="Int32" Nullable="false" />
+          <Property Name="NomSubMenu" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IconSubMenu" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AsignarPrivilegio" Relationship="Self.fk_AsignarPrivilegio_SubMenu1" FromRole="SubMenu" ToRole="AsignarPrivilegio" />
+          <NavigationProperty Name="Menu" Relationship="Self.fk_SubMenu_Menu1" FromRole="SubMenu" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="DNI" Type="Int32" Nullable="false" />
+          <Property Name="Usuario1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Pass" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AsignarUsuarioRol" Relationship="Self.fk_AsignarUsuarioRol_usuario1" FromRole="Usuario" ToRole="AsignarUsuarioRol" />
+        </EntityType>
+        <Association Name="fk_AsignarPrivilegio_AsignarUsuarioRol1">
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="1" />
+          <End Role="AsignarPrivilegio" Type="Self.AsignarPrivilegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdUsuario" />
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="AsignarPrivilegio">
+              <PropertyRef Name="IdUsuario" />
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarPrivilegio_SubMenu1">
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="1" />
+          <End Role="AsignarPrivilegio" Type="Self.AsignarPrivilegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+              <PropertyRef Name="IdSubMenu" />
+            </Principal>
+            <Dependent Role="AsignarPrivilegio">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+              <PropertyRef Name="IdSubMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarUsuarioRol_Rol1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AsignarUsuarioRol_usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AsignarUsuarioRol" Type="Self.AsignarUsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="AsignarUsuarioRol">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Menu_Modulo1">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="IdModulo" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="IdModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SubMenu_Menu1">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SubMenu">
+              <PropertyRef Name="IdModulo" />
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Rol_Modulo1">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="IdModulo" />
+            </Principal>
+            <Dependent Role="Rol">
+              <PropertyRef Name="IdModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SeguridadEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AsignarPrivilegio" EntityType="Self.AsignarPrivilegio" />
+          <EntitySet Name="AsignarUsuarioRol" EntityType="Self.AsignarUsuarioRol" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" />
+          <EntitySet Name="RecupContra" EntityType="Self.RecupContra" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="SubMenu" EntityType="Self.SubMenu" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_AsignarPrivilegio_AsignarUsuarioRol1" Association="Self.fk_AsignarPrivilegio_AsignarUsuarioRol1">
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+            <End Role="AsignarPrivilegio" EntitySet="AsignarPrivilegio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarPrivilegio_SubMenu1" Association="Self.fk_AsignarPrivilegio_SubMenu1">
+            <End Role="SubMenu" EntitySet="SubMenu" />
+            <End Role="AsignarPrivilegio" EntitySet="AsignarPrivilegio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarUsuarioRol_Rol1" Association="Self.fk_AsignarUsuarioRol_Rol1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AsignarUsuarioRol_usuario1" Association="Self.fk_AsignarUsuarioRol_usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AsignarUsuarioRol" EntitySet="AsignarUsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Menu_Modulo1" Association="Self.fk_Menu_Modulo1">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SubMenu_Menu1" Association="Self.fk_SubMenu_Menu1">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="SubMenu" EntitySet="SubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Rol_Modulo1" Association="Self.fk_Rol_Modulo1">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <FunctionImport Name="SpAsignarPrivilegio_List" ReturnType="Collection(SeguridadContext.SpAsignarPrivilegio_List_Result)">
+            <Parameter Name="Opc" Mode="In" Type="Int32" />
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpPrivilegioMenu_List" ReturnType="Collection(SeguridadContext.SpPrivilegioMenu_List_Result)">
+            <Parameter Name="Opc" Mode="In" Type="Int32" />
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+            <Parameter Name="IdModulo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpPrivilegioModulo_List" ReturnType="Collection(SeguridadContext.SpPrivilegioModulo_List_Result)">
+            <Parameter Name="Opc" Mode="In" Type="Int32" />
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpPrivilegioSubMenu_List" ReturnType="Collection(SeguridadContext.SpPrivilegioSubMenu_List_Result)">
+            <Parameter Name="Opc" Mode="In" Type="Int32" />
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+            <Parameter Name="IdModulo" Mode="In" Type="String" />
+            <Parameter Name="IdMenu" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpRecupContra_Delete">
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpRecupContra_Insert">
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Token" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpUsuario_Insert">
+            <Parameter Name="Usu" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+            <Parameter Name="DNI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpUsuario_List" ReturnType="Collection(SeguridadContext.SpUsuario_List_Result)">
+            <Parameter Name="Opc" Mode="In" Type="Int32" />
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpUsuario_Update">
+            <Parameter Name="Usu" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+            <Parameter Name="DNI" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SpAsignarPrivilegio_List_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="Int32" Name="DNI" Nullable="false" />
+          <Property Type="String" Name="Usuario" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="IdModulo" Nullable="false" />
+          <Property Type="String" Name="NomModulo" Nullable="true" MaxLength="45" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="NomRol" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="IconMenu" Nullable="false" MaxLength="45" />
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="String" Name="NomMenu" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="IconSubMenu" Nullable="false" MaxLength="45" />
+          <Property Type="Int32" Name="IdSubMenu" Nullable="false" />
+          <Property Type="String" Name="NomSubMenu" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="URL" Nullable="false" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="SpPrivilegioMenu_List_Result">
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="String" Name="NomMenu" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="IconMenu" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="URL" Nullable="false" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="SpPrivilegioModulo_List_Result">
+          <Property Type="Int32" Name="IdModulo" Nullable="false" />
+          <Property Type="String" Name="NomModulo" Nullable="true" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="SpPrivilegioSubMenu_List_Result">
+          <Property Type="Int32" Name="IdSubMenu" Nullable="false" />
+          <Property Type="String" Name="NomSubMenu" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="IconSubMenu" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="URL" Nullable="false" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="SpUsuario_List_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="Int32" Name="DNI" Nullable="false" />
+          <Property Type="String" Name="Usuario" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Pass" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SeguridadContextStoreContainer" CdmEntityContainer="SeguridadEntities">
+          <EntitySetMapping Name="AsignarPrivilegio">
+            <EntityTypeMapping TypeName="SeguridadContext.AsignarPrivilegio">
+              <MappingFragment StoreEntitySet="AsignarPrivilegio">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="IdSubMenu" ColumnName="IdSubMenu" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AsignarUsuarioRol">
+            <EntityTypeMapping TypeName="SeguridadContext.AsignarUsuarioRol">
+              <MappingFragment StoreEntitySet="AsignarUsuarioRol">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="SeguridadContext.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="NomMenu" ColumnName="NomMenu" />
+                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulo">
+            <EntityTypeMapping TypeName="SeguridadContext.Modulo">
+              <MappingFragment StoreEntitySet="Modulo">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="NomModulo" ColumnName="NomModulo" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecupContra">
+            <EntityTypeMapping TypeName="SeguridadContext.RecupContra">
+              <MappingFragment StoreEntitySet="RecupContra">
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="FecCre" ColumnName="FecCre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="SeguridadContext.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NomRol" ColumnName="NomRol" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubMenu">
+            <EntityTypeMapping TypeName="SeguridadContext.SubMenu">
+              <MappingFragment StoreEntitySet="SubMenu">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="IdSubMenu" ColumnName="IdSubMenu" />
+                <ScalarProperty Name="NomSubMenu" ColumnName="NomSubMenu" />
+                <ScalarProperty Name="IconSubMenu" ColumnName="IconSubMenu" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="SeguridadContext.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SpAsignarPrivilegio_List" FunctionName="SeguridadContext.Store.SpAsignarPrivilegio_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SeguridadContext.SpAsignarPrivilegio_List_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="NomModulo" ColumnName="NomModulo" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NomRol" ColumnName="NomRol" />
+                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="NomMenu" ColumnName="NomMenu" />
+                <ScalarProperty Name="IconSubMenu" ColumnName="IconSubMenu" />
+                <ScalarProperty Name="IdSubMenu" ColumnName="IdSubMenu" />
+                <ScalarProperty Name="NomSubMenu" ColumnName="NomSubMenu" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpPrivilegioMenu_List" FunctionName="SeguridadContext.Store.SpPrivilegioMenu_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SeguridadContext.SpPrivilegioMenu_List_Result">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="NomMenu" ColumnName="NomMenu" />
+                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpPrivilegioModulo_List" FunctionName="SeguridadContext.Store.SpPrivilegioModulo_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SeguridadContext.SpPrivilegioModulo_List_Result">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="NomModulo" ColumnName="NomModulo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpPrivilegioSubMenu_List" FunctionName="SeguridadContext.Store.SpPrivilegioSubMenu_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SeguridadContext.SpPrivilegioSubMenu_List_Result">
+                <ScalarProperty Name="IdSubMenu" ColumnName="IdSubMenu" />
+                <ScalarProperty Name="NomSubMenu" ColumnName="NomSubMenu" />
+                <ScalarProperty Name="IconSubMenu" ColumnName="IconSubMenu" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpRecupContra_Delete" FunctionName="SeguridadContext.Store.SpRecupContra_Delete" />
+          <FunctionImportMapping FunctionImportName="SpRecupContra_Insert" FunctionName="SeguridadContext.Store.SpRecupContra_Insert" />
+          <FunctionImportMapping FunctionImportName="SpUsuario_Insert" FunctionName="SeguridadContext.Store.SpUsuario_Insert" />
+          <FunctionImportMapping FunctionImportName="SpUsuario_List" FunctionName="SeguridadContext.Store.SpUsuario_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SeguridadContext.SpUsuario_List_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpUsuario_Update" FunctionName="SeguridadContext.Store.SpUsuario_Update" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
